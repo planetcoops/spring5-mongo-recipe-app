@@ -2,9 +2,9 @@
 
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
 orbs:
-  gradle: circleci/gradle@5.0.0
+  gradle: bizzabo/gradle@5.0.0
+version: 2.1
 jobs:
   build:
     docker:
