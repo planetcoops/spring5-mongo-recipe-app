@@ -5,6 +5,7 @@
 version: 2.1
 orbs:
   gradle: circleci/gradle@3.0.0
+  codecov: codecov/codecov@3
 jobs:
   build:
     docker:
@@ -56,6 +57,7 @@ jobs:
       - store_artifacts:
           path: ~/junit
 
-      - run:
-          name: Send to CodeCov
-          command: bash <(curl -s https://codecov.io/bash)
+#      - run:
+#          name: Send to CodeCov
+#          command: bash <(curl -s https://codecov.io/bash)
+      - codecov/upload
