@@ -12,16 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by jt on 6/17/17.
  */
 @RunWith(SpringRunner.class)
 @DataMongoTest
-public class UnitOfMeasureRepositoryIT {
+public class UnitOfMeasureReactiveRepositoryIT {
 
     @Autowired
     UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
@@ -29,13 +28,13 @@ public class UnitOfMeasureRepositoryIT {
     CategoryReactiveRepository categoryReactiveRepository;
     @Autowired
     RecipeReactiveRepository recipeReactiveRepository;
+
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
     @Autowired
     CategoryRepository categoryRepository;
     @Autowired
     RecipeRepository recipeRepository;
-
     RecipeBootstrap recipeBootstrap;
 
     @Before
@@ -51,17 +50,17 @@ public class UnitOfMeasureRepositoryIT {
     @Test
     public void findByDescription() throws Exception {
 
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
-        assertEquals("Teaspoon", uomOptional.get().getDescription());
+        UnitOfMeasure uom = unitOfMeasureReactiveRepository.findByDescription("Teaspoon").block();
+        assertNotNull(uom);
+        assertEquals("Teaspoon", uom.getDescription());
     }
 
     @Test
     public void findByDescriptionCup() throws Exception {
 
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
-
-        assertEquals("Cup", uomOptional.get().getDescription());
+        UnitOfMeasure uom = unitOfMeasureReactiveRepository.findByDescription("Cup").block();
+        assertNotNull(uom);
+        assertEquals("Cup", uom.getDescription());
     }
 
 }
